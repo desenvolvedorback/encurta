@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Redirecionando...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    #bar {
+      width: 100%;
+      background: #222;
+      border: 1px solid #0f0;
+      border-radius: 5px;
+      margin-top: 2rem;
+    }
+    #progress {
+      width: 0%;
+      height: 20px;
+      background: #0f0;
+      transition: width 1s linear;
+    }
+    .ad-box {
+      margin: 2rem 0;
+      background: #111;
+      padding: 1rem;
+      border: 1px dashed #0f0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h2>⏳ Aguarde... redirecionando para sua oferta</h2>
+  <div id="bar"><div id="progress"></div></div>
+  <p id="counter">3</p>
+
+  <div class="ad-box">
+    <!-- 🔥 Google AdSense (ative só se tiver conta aprovada!) -->
+    <!--
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=SEU-CLIENT-ID"
+     crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="SEU-CLIENT-ID"
+         data-ad-slot="SEU-SLOT-ID"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    -->
+    <p>💰 Seu anúncio aparecerá aqui!</p>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetUrl = urlParams.get('url');
+    let seconds = 3;
+    const counter = document.getElementById('counter');
+    const progress = document.getElementById('progress');
+
+    const interval = setInterval(() => {
+      seconds--;
+      counter.textContent = seconds;
+      progress.style.width = ((3 - seconds) / 3 * 100) + '%';
+      if (seconds <= 0) {
+        clearInterval(interval);
+        window.location.href = targetUrl;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
