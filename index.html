@@ -1,50 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoNet Encurtador - Encurte seus links com segurança</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background: #000; color: #0f0; }
-        h1 { margin-bottom: 20px; }
-        input, button { padding: 10px; margin: 5px; width: 80%; max-width: 400px; }
-        footer { margin-top: 40px; font-size: 14px; }
-        a { color: #0f0; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encurtador Camuflado</title>
+
+  <!-- AdSense de verificação -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1535700125494684"
+     crossorigin="anonymous"></script>
+
+  <!-- Script do QR Code -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #000;
+      color: #0f0;
+      text-align: center;
+      padding: 2rem;
+    }
+    input, button {
+      width: 90%;
+      padding: 0.8rem;
+      margin: 1rem auto;
+      display: block;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    input {
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+    }
+    button {
+      background: #0f0;
+      color: #000;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0c0;
+    }
+    .box {
+      background: #111;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 8px;
+      border: 1px solid #0f0;
+    }
+    a { color: #0f0; text-decoration: underline; }
+  </style>
 </head>
 <body>
-    <h1>NeoNet Encurtador</h1>
-    <p>Encurte e compartilhe seus links de forma rápida e segura.</p>
+  <h1>🧪 Camuflador de Link Afiliado</h1>
+  <input type="text" id="inputLink" placeholder="Cole o link do produto..." />
+  <input type="text" id="inputNome" placeholder="Nome do produto (sem espaço)" />
+  <button onclick="gerar()">Gerar Link</button>
 
-    <form id="encurtarForm">
-        <input type="url" id="linkOriginal" placeholder="Cole seu link aqui..." required>
-        <button type="submit">Encurtar</button>
-    </form>
+  <div id="output" class="box"></div>
+  <canvas id="qr" style="margin-top: 20px;"></canvas>
+  <div id="preview" class="box"></div>
+  
+  <footer style="margin-top: 50px; text-align: center; color: #aaa; font-size: 14px;">
+  <p>&copy; 2025 NeoNet Encurtador</p>
+  <p><a href="privacidade.html" target="_blank" style="color: #0f0;">Política de Privacidade</a></p>
+</footer>
 
-    <div id="resultado"></div>
 
-    <footer>
-        <p>© 2025 NeoNet Encurtador</p>
-        <p>
-            <a href="politica.html">Política de Privacidade</a> | 
-            <a href="termos.html">Termos de Uso</a>
-        </p>
-    </footer>
+ <script>
+  function gerar() {
+  let link = document.getElementById('inputLink').value.trim();
+  const nome = document.getElementById('inputNome').value.replace(/\s+/g, '');
 
-    <script>
-        document.getElementById("encurtarForm").addEventListener("submit", function(e){
-            e.preventDefault();
-            let link = document.getElementById("linkOriginal").value;
-            if(!link.startsWith("http")) {
-                alert("Por favor, insira um link válido.");
-                return;
-            }
-            // Exemplo simples de encurtamento
-            let encurtado = "https://neonet.ly/" + btoa(link).slice(0,6);
-            document.getElementById("resultado").innerHTML = 
-                `<p>Seu link encurtado: <a href="${link}" target="_blank">${encurtado}</a></p>`;
-        });
-    </script>
+  // Corrige se o link não tiver https://
+  if (!/^https?:\/\//i.test(link)) {
+    link = 'https://' + link;
+  }
+
+  const redirectLink = `redirect.html?url=${encodeURIComponent(link)}`;
+  const fakeLink = window.location.href.replace(/index\.html$/, '') + nome + '.html';
+
+  document.getElementById('output').innerHTML = `
+    <p>🔗 Link camuflado:</p>
+    <a href="${redirectLink}" target="_blank">${fakeLink}</a>
+    <button onclick="copyHTML('${redirectLink}')">Copiar Botão HTML</button>
+  `;
+
+  document.getElementById('preview').innerHTML = `
+    <p>Prévia do botão:</p>
+    <a href="${redirectLink}" target="_blank">
+      <button style="padding:10px 20px; background:green; color:black; border:none; border-radius:5px;">Comprar Agora</button>
+    </a>
+  `;
+
+  QRCode.toCanvas(document.getElementById('qr'), redirectLink);
+}
+
+function copyHTML(link) {
+  const html = `<a href="${link}" target="_blank"><button style="padding:10px 20px; background:green; color:black; border:none; border-radius:5px;">Comprar Agora</button></a>`;
+  navigator.clipboard.writeText(html);
+  alert("Botão HTML copiado!");
+}
+</script>
 </body>
 </html>
