@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel Admin - Publicar Artigo</title>
+<style>
+  body {
+    background: #0e0e0e;
+    color: #d4d4d4;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  textarea {
+    width: 100%;
+    height: 300px;
+    background: #111;
+    color: #0f0;
+    border-radius: 8px;
+    border: 1px solid #0f0;
+    font-family: monospace;
+    padding: 15px;
+    margin-bottom: 20px;
+    resize: vertical;
+  }
+  button {
+    background: #00ff88;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #000;
+    font-size: 16px;
+  }
+  button:hover {
+    background: #00cc66;
+  }
+  #msg {
+    margin-top: 15px;
+    color: #0f0;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Painel Admin - Publicar Artigo</h1>
+<p><strong>Formato do texto:</strong></p>
+<pre style="background:#222; padding:10px; border-radius:6px; color:#0f0;">
+Título do Artigo
+Data: dd/mm/aaaa
+
+Primeiro parágrafo do artigo...
+
+Segundo parágrafo...
+</pre>
+
+<textarea id="txtInput" placeholder="Cole o texto do artigo aqui no formato acima..."></textarea>
+<button onclick="salvarArtigo()">Salvar Artigo</button>
+
+<div id="msg"></div>
+
+<script>
+  function salvarArtigo() {
+    const txt = document.getElementById('txtInput').value.trim();
+    if (!txt) {
+      alert('Por favor, cole o texto do artigo!');
+      return;
+    }
+    const linhas = txt.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if (linhas.length < 3) {
+      alert('O texto precisa ter pelo menos título, data e um parágrafo.');
+      return;
+    }
+
+    // Extrair título e data
+    const titulo = linhas[0];
+    let data = linhas[1];
+    if (data.toLowerCase().startsWith('data:')) {
+      data = data.substring(5).trim();
+    } else {
+      data = '';
+    }
+    const paragrafos = linhas.slice(2);
+
+    // Criar objeto artigo
+    const artigo = {
+      id: Date.now(),
+      titulo,
+      data,
+      paragrafos
+    };
+
+    // Puxar lista existente do localStorage
+    let artigos = JSON.parse(localStorage.getItem('artigosNeoNet')) || [];
+
+    // Adicionar novo artigo no começo da lista
+    artigos.unshift(artigo);
+
+    // Salvar de volta no localStorage
+    localStorage.setItem('artigosNeoNet', JSON.stringify(artigos));
+
+    // Feedback
+    document.getElementById('msg').textContent = 'Artigo salvo com sucesso! Atualize a página do blog para ver.';
+
+    // Limpar textarea
+    document.getElementById('txtInput').value = '';
+  }
+</script>
+
+</body>
+</html>
