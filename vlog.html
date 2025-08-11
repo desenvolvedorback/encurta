@@ -1,40 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Blog - NeoNet & Zyntra | Notícias e Atualizações</title>
-  <meta name="description" content="Notícias, atualizações e comunicados oficiais sobre NeoNet Encurtador e o grupo Zyntra. Fique por dentro das novidades." />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#000;
-      --neon:#0f0;
-      --panel:#0b0b0b;
-      --muted:#7fdf7f;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog Neo Net - Grupo Zyntra</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #0e0e0e;
+    color: #d4d4d4;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+  }
+  header {
+    background-color: #0f3d0f;
+    padding: 20px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    color: #00ff88;
+  }
+  nav {
+    background-color: #111;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  nav a {
+    color: #00ff88;
+    margin: 0 15px;
+    text-decoration: none;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  article {
+    background-color: #1a1a1a;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  article h2 {
+    color: #00ff88;
+  }
+  article small {
+    color: #888;
+  }
+  footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #0f3d0f;
+    color: #00ff88;
+    margin-top: 30px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Blog Oficial - Neo Net</h1>
+  <p>Conectando o mundo com segurança e inovação - Grupo Zyntra</p>
+</header>
+
+<nav>
+  <a href="#">Início</a>
+  <a href="#">Sobre</a>
+  <a href="#">Contato</a>
+</nav>
+
+<main id="articlesContainer">
+  <!-- Artigos vão ser carregados aqui pelo JS -->
+</main>
+
+<footer>
+  <p>Neo Net - Parte do Grupo Zyntra © 2025 | Todos os direitos reservados</p>
+</footer>
+
+<script>
+  function carregarArtigos() {
+    const container = document.getElementById('articlesContainer');
+    const artigos = JSON.parse(localStorage.getItem('artigosNeoNet')) || [];
+
+    if(artigos.length === 0) {
+      container.innerHTML = '<p>Nenhum artigo publicado ainda.</p>';
+      return;
     }
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--neon);font-family: 'Orbitron', sans-serif;}
-    a{color:var(--neon);text-decoration:none}
-    .container{max-width:980px;margin:1.6rem auto;padding:1.2rem;}
-    header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-    header h1{margin:0;font-size:1.45rem}
-    nav a{margin-left:1rem;font-size:0.95rem}
-    .hero{background:linear-gradient(90deg, rgba(15,255,15,0.03), rgba(0,0,0,0));border:1px solid rgba(15,255,15,0.08);padding:1rem;border-radius:8px;margin-top:1rem}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:1rem;margin-top:1rem}
-    .card{background:var(--panel);padding:1rem;border-radius:8px;border:1px solid rgba(15,255,15,0.06)}
-    article.post{margin-bottom:1rem;border-left:3px solid rgba(15,255,15,0.12);padding-left:1rem}
-    article.post h2{margin:0 0 .25rem 0;font-size:1.05rem}
-    article.post p{margin:.4rem 0;color:var(--muted)}
-    .meta{font-size:0.82rem;color:#8f8;}
-    aside .box{margin-bottom:1rem}
-    footer{margin-top:2rem;text-align:center;color:#8f8;font-size:0.9rem}
-    .small{font-size:0.85rem;color:#9f9;margin-top:.6rem}
-    .readmore{display:inline-block;margin-top:.6rem;padding:.4rem .6rem;border-radius:6px;background:rgba(15,255,15,0.12);border:1px solid rgba(15,255,15,0.06);color:var(--neon)}
-    /* responsive */
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr; }
-      nav{width:100%;text-align:center;margin-top:.6rem}
-    }
+
+    let html = '';
+    artigos.forEach(artigo => {
+      html += `<article>
+        <h2>${artigo.titulo}</h2>
+        <small>Publicado em ${artigo.data}</small>`;
+      artigo.paragrafos.forEach(p => {
+        html += `<p>${p}</p>`;
+      });
+      html += `</article>`;
+    });
+
+    container.innerHTML = html;
+  }
+
+  window.onload = carregarArtigos;
+</script>
+
+</body>
+</html>    }
   </style>
 </head>
 <body>
