@@ -80,27 +80,32 @@
 </footer>
 
 <script>
-  function carregarArtigos() {
+  async function carregarArtigos() {
     const container = document.getElementById('articlesContainer');
-    const artigos = JSON.parse(localStorage.getItem('artigosNeoNet')) || [];
-
-    if(artigos.length === 0) {
-      container.innerHTML = '<p>Nenhum artigo publicado ainda.</p>';
-      return;
-    }
-
-    let html = '';
-    artigos.forEach(artigo => {
-      html += `<article>
-        <h2>${artigo.titulo}</h2>
-        <small>Publicado em ${artigo.data}</small>`;
-      artigo.paragrafos.forEach(p => {
-        html += `<p>${p}</p>`;
+    try {
+      const response = await fetch('artigos.json');
+      if (!response.ok) throw new Error('Erro ao carregar artigos.json');
+      
+      const artigos = await response.json();
+      if (artigos.length === 0) {
+        container.innerHTML = '<p>Nenhum artigo publicado ainda.</p>';
+        return;
+      }
+      
+      let html = '';
+      artigos.forEach(artigo => {
+        html += `<article>
+          <h2>${artigo.titulo}</h2>
+          <small>Publicado em ${artigo.data}</small>
+          <div>${artigo.conteudo}</div>
+        </article>`;
       });
-      html += `</article>`;
-    });
-
-    container.innerHTML = html;
+      
+      container.innerHTML = html;
+    } catch (error) {
+      container.innerHTML = '<p>Erro ao carregar os artigos.</p>';
+      console.error(error);
+    }
   }
 
   window.onload = carregarArtigos;
@@ -255,4 +260,5 @@
     });
   </script>
 </body>
-</html>
+                                      </html>
+                                      
