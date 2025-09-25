@@ -50,16 +50,13 @@
     "conteudo": "<p>Ao usar links de afiliados, recomendamos:</p><ul><li>Informar o usuário quando o link contém tracking/afiliado.</li><li>Testar o redirecionamento antes de publicar.</li><li>Usar páginas de destino confiáveis para evitar bloqueios.</li></ul><p>Manter transparência aumenta a confiança e taxa de conversão.</p>"
   },
   {
-  "noticia": {
     "titulo": "Como entrar para o grupo de parceria da Zyntra",
     "data": "2025-09-25",
     "conteudo": "<p>O grupo de parceria da Zyntra é voltado para pessoas e empresas que desejam colaborar e crescer junto com a rede de inovação da empresa. Para participar, existem duas formas principais: a primeira é entrando em contato diretamente pelo WhatsApp comercial oficial, no número <a href=\\\"https://wa.me/554796014291\\\">+55 (47) 9601-4291</a>. A segunda é consumindo os serviços da Zyntra, que incluem criação de sites, design, automações e muito mais. Esses serviços estão disponíveis em <a href=\\\"https://zyntra-zy.netlify.app/\\\">site oficial</a> e na página de <a href=\\\"https://zyntra-zy.netlify.app/recursos\\\">recursos</a>. Além disso, você pode conhecer os atuais parceiros acessando <a href=\\\"https://zyntra-zy.netlify.app/parceiros\\\">a página de parceiros</a>.</p>"
-  }
-
+  },
   {
     "titulo": "NeoNet Encurtador: lançamento da nova interface (v1.2)",
     "data": "2025-08-08",
     "conteudo": "<p>Hoje lançamos a versão 1.2 do NeoNet Encurtador. Esta atualização foca em usabilidade, desempenho e melhorias na geração de QR Code.</p><p>Entre as novidades:</p><ul><li>Design otimizado para mobile</li><li>Barra de progresso durante o redirecionamento</li><li>Melhor compatibilidade com serviços de anúncios</li></ul>"
   }
 ]
-
