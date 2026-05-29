@@ -5,78 +5,181 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Blog Neo Net - Grupo Zyntra</title>
 <link rel="icon" href="https://files.catbox.moe/t696qp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
+  :root {
+    --bg-main: #0a0a0c;
+    --bg-card: #121216;
+    --bg-nav: #16161c;
+    --primary: #00ff88;
+    --primary-glow: rgba(0, 255, 136, 0.2);
+    --text-main: #e2e8f0;
+    --text-muted: #8a99ad;
+    --border-color: #22252d;
+  }
+
+  * {
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+  }
+
   body {
-    font-family: Arial, sans-serif;
-    background-color: #0e0e0e;
-    color: #d4d4d4;
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-  }
-  header {
-    background-color: #0f3d0f;
-    padding: 20px;
-    text-align: center;
-  }
-  header h1 {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
     margin: 0;
-    color: #00ff88;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vi;
   }
-  nav {
-    background-color: #111;
-    padding: 10px;
+
+  .container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  header {
+    background: linear-gradient(180deg, #071f0f 0%, var(--bg-main) 100%);
+    padding: 40px 0 20px 0;
     text-align: center;
-    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
   }
+
+  header h1 {
+    margin: 0 0 10px 0;
+    color: var(--primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--primary-glow);
+    letter-spacing: -0.5px;
+  }
+
+  header p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 300;
+  }
+
+  nav {
+    background-color: var(--bg-nav);
+    padding: 14px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
   nav a {
-    color: #00ff88;
-    margin: 0 15px;
+    color: var(--text-main);
+    margin: 0 20px;
     text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
   }
+
   nav a:hover {
-    text-decoration: underline;
+    color: var(--primary);
+    text-shadow: 0 0 8px var(--primary-glow);
   }
+
+  main {
+    flex: 1;
+    padding: 40px 0;
+  }
+
+  .error-msg, .empty-msg {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 40px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px dashed var(--border-color);
+  }
+
   article {
-    background-color: #1a1a1a;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    background-color: var(--bg-card);
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
   }
+
+  article:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 30px rgba(0, 255, 136, 0.05);
+  }
+
   article h2 {
-    color: #00ff88;
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-size: 1.6rem;
   }
+
   article small {
-    color: #888;
+    display: block;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
+
+  article div {
+    line-height: 1.7;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+  }
+
   footer {
     text-align: center;
-    padding: 15px;
-    background-color: #0f3d0f;
-    color: #00ff88;
-    margin-top: 30px;
+    padding: 25px 0;
+    background-color: var(--bg-nav);
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+  }
+  
+  footer span {
+    color: var(--primary);
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Blog Oficial - Neo Net</h1>
-  <p>Conectando o mundo com segurança e inovação - Grupo Zyntra</p>
+  <div class="container">
+    <h1>Neo Net</h1>
+    <p>Conectando o mundo com segurança e inovação — Grupo Zyntra</p>
+  </div>
 </header>
 
 <nav>
-  <a href="#">Início</a>
-  <a href="#">Sobre</a>
-  <a href="#">Contato</a>
+  <div class="container">
+    <a href="#">Início</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
+  </div>
 </nav>
 
-<main id="articlesContainer">
-  <!-- Artigos vão ser carregados aqui pelo JS -->
-</main>
+<main class="container" id="articlesContainer">
+  </main>
 
 <footer>
-  <p>Neo Net - Parte do Grupo Zyntra © 2025 | Todos os direitos reservados</p>
+  <div class="container">
+    <p>Neo Net - Parte do <span>Grupo Zyntra</span> © 2026 | Todos os direitos reservados</p>
+  </div>
 </footer>
 
 <script>
@@ -87,29 +190,19 @@
       if (!response.ok) throw new Error('Erro ao carregar artigos.json');
       
       const artigos = await response.json();
-      if (artigos.length === 0) {
-        container.innerHTML = '<p>Nenhum artigo publicado ainda.</p>';
+      if (!artigos || artigos.length === 0) {
+        container.innerHTML = '<p class="empty-msg">Nenhum artigo publicado ainda.</p>';
         return;
       }
       
-      let html = '';
-      artigos.forEach(artigo => {
-        html += `<article>
+      // Mapeamento limpo usando template string avançado
+      container.innerHTML = artigos.map(artigo => `
+        <article>
           <h2>${artigo.titulo}</h2>
           <small>Publicado em ${artigo.data}</small>
           <div>${artigo.conteudo}</div>
-        </article>`;
-      });
-      
-      container.innerHTML = html;
+        </article>
+      `).join('');
+
     } catch (error) {
-      container.innerHTML = '<p>Erro ao carregar os artigos.</p>';
-      console.error(error);
-    }
-  }
-
-  window.onload = carregarArtigos;
-</script>
-
-</body>
-</html>
+      container.innerHTML
