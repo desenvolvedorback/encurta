@@ -1,25 +1,237 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termos de Uso - NeoNet Encurtador</title>
-     <link rel="icon" href="https://files.catbox.moe/t696qp.png">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
-        h1 { color: #0f0; background: #000; padding: 10px; border-radius: 8px; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Termos de Uso — NeoNet Encurtador</title>
+<link rel="icon" href="https://files.catbox.moe/t696qp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-main: #0b0c0e;
+    --bg-card: #13151a;
+    --primary: #00b159;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #242936;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+
+  .wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+  }
+
+  .brand-badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+    margin-bottom: 8px;
+  }
+
+  .meta-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .intro-text {
+    font-size: 1.05rem;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+  }
+
+  section {
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background-color: var(--primary);
+    margin-right: 10px;
+    border-radius: 2px;
+  }
+
+  p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    text-align: justify;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  li {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .highlight-box {
+    background-color: rgba(241, 245, 249, 0.03);
+    border-left: 3px solid var(--border-color);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .highlight-box p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  footer a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 20px 10px; }
+    .wrapper { padding: 25px 20px; }
+    header h1 { font-size: 1.6rem; }
+  }
+</style>
 </head>
 <body>
-    <h1>Termos de Uso</h1>
-    <p>Ao utilizar o NeoNet Encurtador, você concorda com estes termos.</p>
-    <h2>Uso Permitido</h2>
-    <p>Você se compromete a não utilizar este serviço para fins ilegais, spam, phishing, distribuição de malware ou qualquer atividade prejudicial.</p>
-    <h2>Propriedade</h2>
-    <p>Todo o conteúdo e funcionalidades deste site pertencem ao NeoNet Encurtador.</p>
-    <h2>Responsabilidade</h2>
-    <p>Não nos responsabilizamos por danos causados pelo uso indevido dos links encurtados.</p>
-    <h2>Alterações</h2>
-    <p>Podemos modificar estes termos a qualquer momento, e seu uso contínuo significa que você aceita as alterações.</p>
+
+<div class="wrapper">
+  <header>
+    <span class="brand-badge">Grupo Zyntra Ecosystem</span>
+    <h1>Termos e Condições de Uso</h1>
+    <div class="meta-date">Última atualização: 29 de maio de 2026</div>
+  </header>
+
+  <p class="intro-text">
+    Seja bem-vindo ao NeoNet Encurtador. Este documento estabelece as regras, obrigações e diretrizes legais que regulam o acesso e a utilização da nossa plataforma de redirecionamento.
+  </p>
+
+  <section>
+    <h2>1. Aceitação dos Termos</h2>
+    <p>
+      Ao acessar, navegar ou utilizar os serviços do NeoNet Encurtador, você declara ter lido, compreendido e concordado expressamente com a totalidade das cláusulas dispostas neste instrumento. Caso não concorde com qualquer termo aqui estabelecido, orientamos que interrompa o uso do serviço imediatamente.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Elegibilidade e Cadastro</h2>
+    <p>
+      O uso desta plataforma é restrito a indivíduos civilmente capazes perante a legislação vigente. Ao gerar links encurtados, você assume total responsabilidade pela idoneidade jurídica da URL de destino enviada aos nossos servidores.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Política de Uso Permitido e Restrições</h2>
+    <p>
+      O NeoNet Encurtador visa fornecer uma ferramenta de otimização de links segura e ágil. É terminantemente proibido utilizar o serviço para mascarar, intermediar ou direcionar usuários para conteúdos que envolvam:
+    </p>
+    <ul>
+      <li>Atividades ilícitas, fraudulentas, práticas de <em>phishing</em> ou engenharia social;</li>
+      <li>Disseminação de códigos maliciosos, vírus, cavalos de troia, <em>malware</em> ou <em>ransomware</em>;</li>
+      <li>Envio massivo de mensagens não solicitadas (prática de <em>spam</em>);</li>
+      <li>Violação de direitos autorais, propriedade intelectual ou privacidade de terceiros;</li>
+      <li>Qualquer material que promova assédio, discurso de ódio ou exploração ilegal.</li>
+    </ul>
+    <div class="highlight-box">
+      <p>Nota de conformidade: O Grupo Zyntra monitora padrões de tráfego incomuns e se reserva o direito de desativar imediatamente e sem aviso prévio qualquer link que viole estas diretrizes.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Propriedade Intelectual</h2>
+    <p>
+      A marca NeoNet Encurtador, seus logotipos, códigos-fonte, estruturas de banco de dados, interfaces visuais e demais ativos digitais são de propriedade intelectual exclusiva do Grupo Zyntra. A reprodução ou engenharia reversa não autorizada da plataforma constitui infração legal de direitos autorais.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Limitação de Responsabilidade</h2>
+    <p>
+      O NeoNet Encurtador atua exclusivamente como um intermediador técnico de redirecionamento hipertextual. Como tal, não exercemos controle prévio editorial sobre o conteúdo final hospedado nas URLs de destino fornecidas pelos usuários. 
+    </p>
+    <p>
+      Não nos responsabilizamos por perdas financeiras, danos operacionais ou prejuízos à segurança da informação decorrentes do acesso a links gerados por terceiros em nossa infraestrutura.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Alterações Contratuais</h2>
+    <p>
+      Buscando a melhoria contínua de nossos ecossistemas, este termo poderá ser revisado periodicamente. As modificações passarão a vigorar imediatamente após a publicação da nova versão nesta página. Recomendamos a consulta regular deste documento.
+    </p>
+  </section>
+
+  <footer>
+    <p>Para reportar abusos ou esclarecer dúvidas legais, entre em contato via <a href="#">Suporte Zyntra</a>.</p>
+    <p style="margin-top: 10px; font-size: 0.8rem; color: #64748b;">NeoNet Encurtador — Uma solução do ecossistema corporativo Grupo Zyntra.</p>
+  </footer>
+</div>
+
 </body>
 </html>
