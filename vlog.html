@@ -3,253 +3,407 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Blog Neo Net - Grupo Zyntra</title>
+<title>Zyntra News — Portal Oficial Neo Net</title>
 <link rel="icon" href="https://files.catbox.moe/t696qp.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chronicle+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --bg-main: #0a0a0c;
-    --bg-card: #121216;
-    --bg-nav: #16161c;
-    --primary: #00ff88;
-    --primary-glow: rgba(0, 255, 136, 0.2);
-    --text-main: #e2e8f0;
-    --text-muted: #8a99ad;
-    --border-color: #22252d;
+    --bg-main: #0b0c0e;
+    --bg-card: #13151a;
+    --bg-nav: #181b22;
+    --primary: #00b159; /* Verde corporativo mais sóbrio */
+    --primary-light: #33cc7a;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #242936;
   }
 
   * {
     box-sizing: border-box;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    margin: 0;
+    padding: 0;
   }
 
   body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    line-height: 1.6;
   }
 
   .container {
-    max-width: 900px;
+    max-width: 1140px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
   }
 
+  /* Header Estilo Jornal Sério */
   header {
-    background: linear-gradient(180deg, #071f0f 0%, var(--bg-main) 100%);
-    padding: 40px 0 20px 0;
-    text-align: center;
+    background-color: var(--bg-main);
+    padding: 30px 0;
     border-bottom: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  .zyntra-badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: inline-block;
   }
 
   header h1 {
-    margin: 0 0 10px 0;
-    color: var(--primary);
-    font-size: 2.5rem;
+    font-family: 'Georgia', serif; /* Estilo editorial clássico */
+    font-size: 2.8rem;
     font-weight: 700;
-    text-shadow: 0 0 10px var(--primary-glow);
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    color: var(--text-main);
+    margin-bottom: 6px;
   }
 
   header p {
-    margin: 0;
     color: var(--text-muted);
-    font-size: 1.1rem;
-    font-weight: 300;
+    font-size: 0.95rem;
+    font-weight: 400;
   }
 
-  nav {
+  /* Barra de Navegação + Campo de Busca */
+  .nav-bar {
     background-color: var(--bg-nav);
-    padding: 14px 0;
-    text-align: center;
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
   }
 
   nav a {
-    color: var(--text-main);
-    margin: 0 20px;
+    color: var(--text-muted);
+    margin-right: 25px;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
   }
 
-  nav a:hover {
+  nav a:hover, nav a.active {
     color: var(--primary);
-    text-shadow: 0 0 8px var(--primary-glow);
   }
 
+  /* Container da Barra de Pesquisa */
+  .search-box {
+    position: relative;
+    width: 300px;
+  }
+
+  .search-box input {
+    width: 100%;
+    background-color: #1e222b;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 14px 8px 36px;
+    color: var(--text-main);
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .search-box input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 177, 89, 0.15);
+  }
+
+  .search-box ::placeholder {
+    color: #64748b;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid #64748b;
+    border-radius: 50%;
+  }
+  .search-icon::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 2px;
+    background: #64748b;
+    transform: rotate(45deg);
+    top: 10px;
+    left: 10px;
+  }
+
+  /* Área Principal em Grid de Noticiário */
   main {
     flex: 1;
     padding: 40px 0;
   }
 
-  .error-msg, .empty-msg {
-    text-align: center;
-    color: var(--text-muted);
-    font-style: italic;
-    padding: 40px;
-    background: var(--bg-card);
-    border-radius: 12px;
-    border: 1px dashed var(--border-color);
+  /* Grid de notícias */
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 11vi);
+    gap: 30px;
+  }
+
+  /* CSS Dinâmico para simular Manchete de Capa */
+  .news-grid article:first-of-type {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 35px;
+  }
+  
+  .news-grid article:first-of-type h2 {
+    font-size: 2.2rem;
+    font-family: 'Georgia', serif;
   }
 
   article {
-    background-color: var(--bg-card);
-    padding: 30px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 25px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
   }
 
-  article:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary);
-    box-shadow: 0 8px 30px rgba(0, 255, 136, 0.05);
+  /* Quando em grid comum (demais notícias) */
+  @media (min-width: 769px) {
+    .news-grid article {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .news-grid { grid-template-columns: 1fr; }
+    .news-grid article:first-of-type { grid-column: span 1; }
+    .nav-wrapper { flex-direction: column; height: auto; padding: 15px 0; gap: 15px; }
+    .search-box { width: 100%; }
   }
 
   article h2 {
-    margin-top: 0;
-    margin-bottom: 8px;
-    color: var(--primary);
-    font-size: 1.6rem;
-    line-height: 1.3;
-  }
-
-  article small {
-    display: block;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* Estilização do Conteúdo do Artigo vindos do JSON */
-  article div {
-    line-height: 1.7;
-    color: #cbd5e1;
-    font-size: 1.05rem;
-    word-break: break-word; /* Evita que links longos quebrem o layout */
-  }
-
-  article div p {
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-
-  article div h3 {
     color: var(--text-main);
-    margin: 25px 0 10px 0;
-    font-size: 1.3rem;
-    border-left: 3px solid var(--primary);
-    padding-left: 10px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    transition: color 0.2s;
   }
 
-  article div ul {
-    margin: 10px 0 20px 0;
-    padding-left: 20px;
-  }
-
-  article div li {
-    margin-bottom: 8px;
-  }
-
-  article div a {
-    color: var(--primary);
+  article h2 a {
+    color: inherit;
     text-decoration: none;
   }
 
-  article div a:hover {
-    text-decoration: underline;
+  article h2 a:hover {
+    color: var(--primary);
+  }
+
+  .meta-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+  }
+
+  .category {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  article .content-preview {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    word-break: break-word;
+  }
+
+  /* Formatação interna do conteúdo injetado */
+  .content-preview p { margin-bottom: 12px; }
+  .content-preview h3 { margin: 18px 0 8px 0; font-size: 1.1rem; color: var(--text-main); }
+  .content-preview ul { padding-left: 20px; margin-bottom: 12px; }
+  .content-preview li { margin-bottom: 4px; }
+  .content-preview a { color: var(--primary-light); text-decoration: underline; }
+
+  /* Feedbacks de busca */
+  .status-container {
+    grid-column: span 3;
+    text-align: center;
+    padding: 50px;
+    color: var(--text-muted);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+  }
+
+  .highlight {
+    background-color: rgba(0, 177, 89, 0.25);
+    color: #fff;
+    padding: 0 2px;
+    border-radius: 2px;
   }
 
   footer {
-    text-align: center;
-    padding: 25px 0;
-    background-color: var(--bg-nav);
-    color: var(--text-muted);
+    background-color: #090a0c;
     border-top: 1px solid var(--border-color);
-    font-size: 0.9rem;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
   }
-  
-  footer span {
-    color: var(--primary);
-  }
+
+  footer span { color: var(--text-main); font-weight: 500; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="container">
-    <h1>Neo Net</h1>
-    <p>Conectando o mundo com segurança e inovação — Grupo Zyntra</p>
+    <span class="zyntra-badge">Zyntra Ecosystem Network</span>
+    <h1>Neo Net Corporate News</h1>
+    <p>Jornalismo de tecnologia, infraestrutura global e segurança da informação</p>
   </div>
 </header>
 
-<nav>
-  <div class="container">
-    <a href="#">Início</a>
-    <a href="#">Sobre</a>
-    <a href="#">Contato</a>
+<div class="nav-bar">
+  <div class="container nav-wrapper">
+    <nav>
+      <a href="#" class="active">Geral</a>
+      <a href="#">Tecnologia</a>
+      <a href="#">Segurança</a>
+      <a href="#">Corporativo</a>
+    </nav>
+    <div class="search-box">
+      <div class="search-icon"></div>
+      <input type="text" id="searchInput" placeholder="Pesquisar notícias ou termos..." autocomplete="off">
+    </div>
   </div>
-</nav>
+</div>
 
-<main class="container" id="articlesContainer">
-  <p class="empty-msg">Carregando artigos...</p>
+<main class="container">
+  <div class="news-grid" id="articlesContainer">
+    <div class="status-container">Carregando acervo editorial...</div>
+  </div>
 </main>
 
 <footer>
   <div class="container">
-    <p>Neo Net - Parte do <span>Grupo Zyntra</span> © 2026 | Todos os direitos reservados</p>
+    <p>© 2026 <span>Grupo Zyntra Tech</span>. Conteúdo estritamente informativo. Todos os direitos reservados.</p>
   </div>
 </footer>
 
 <script>
+  let bancoArtigos = []; // Guardará os artigos originais carregados do JSON
+
   async function carregarArtigos() {
     const container = document.getElementById('articlesContainer');
     try {
       const response = await fetch('artigos.json');
-      if (!response.ok) throw new Error('Erro ao carregar o arquivo JSON.');
+      if (!response.ok) throw new Error();
       
-      const artigos = await response.json();
-      if (!artigos || artigos.length === 0) {
-        container.innerHTML = '<p class="empty-msg">Nenhum artigo publicado ainda.</p>';
-        return;
-      }
+      bancoArtigos = await response.json();
+      renderizarArtigos(bancoArtigos);
       
-      // Renderização limpa e mapeada
-      container.innerHTML = artigos.map(artigo => `
-        <article>
-          <h2>${artigo.titulo}</h2>
-          <small>Publicado em ${formatarData(artigo.data)}</small>
-          <div>${artigo.conteudo}</div>
-        </article>
-      `).join('');
-
     } catch (error) {
-      container.innerHTML = '<p class="error-msg">Ops! Não foi possível carregar as notícias. Certifique-se de estar rodando em um servidor local (Live Server).</p>';
-      console.error(error);
+      container.innerHTML = `<div class="status-container">Erro ao estabelecer conexão com o banco de notícias local. Verifique o servidor interno.</div>`;
     }
   }
 
-  // Função auxiliar para deixar a exibição das datas mais bonita (ex: 2025-08-12 vira 12/08/2025)
+  // Função centralizada para renderizar as notícias na tela
+  function renderizarArtigos(lista, termoBusca = '') {
+    const container = document.getElementById('articlesContainer');
+    
+    if (lista.length === 0) {
+      container.innerHTML = `<div class="status-container">Nenhum artigo localizado para o termo correspondente.</div>`;
+      return;
+    }
+
+    container.innerHTML = lista.map((artigo, idx) => {
+      let tituloFinal = artigo.titulo;
+      let conteudoFinal = artigo.conteudo;
+      
+      // Se houver pesquisa ativa, destaca o texto
+      if (termoBusca) {
+        const regex = new RegExp(`(${escapeRegExp(termoBusca)})`, 'gi');
+        tituloFinal = tituloFinal.replace(regex, '<span class="highlight">$1</span>');
+        conteudoFinal = conteudoFinal.replace(regex, '<span class="highlight">$1</span>');
+      }
+
+      // Define tag dinâmica inteligente baseada no título
+      let categoria = 'Geral';
+      if(artigo.titulo.toLowerCase().includes('ia') || artigo.titulo.toLowerCase().includes('inteligência')) categoria = 'Inteligência Artificial';
+      else if(artigo.titulo.toLowerCase().includes('cibersegurança') || artigo.titulo.toLowerCase().includes('segurança')) categoria = 'Segurança';
+      else if(artigo.titulo.toLowerCase().includes('zyntra') || artigo.titulo.toLowerCase().includes('neonet')) categoria = 'Institucional';
+      else if(artigo.titulo.toLowerCase().includes('quântica') || artigo.titulo.toLowerCase().includes('blockchain')) categoria = 'Inovação';
+
+      return `
+        <article>
+          <div class="meta-info">
+            <span class="category">${categoria}</span>
+            <span>•</span>
+            <span>${formatarData(artigo.data)}</span>
+          </div>
+          <h2><a href="#">${tituloFinal}</a></h2>
+          <div class="content-preview">${conteudoFinal}</div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // Monitor da barra de pesquisa com filtragem em tempo real
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    const termo = e.target.value.trim().toLowerCase();
+    
+    if (!termo) {
+      renderizarArtigos(bancoArtigos);
+      return;
+    }
+
+    // Filtra se encontrar o termo no título ou no corpo do texto
+    const filtrados = bancoArtigos.filter(artigo => 
+      artigo.titulo.toLowerCase().includes(termo) || 
+      artigo.conteudo.toLowerCase().includes(termo)
+    );
+
+    renderizarArtigos(filtrados, termo);
+  });
+
+  // Funções Utilitárias auxiliares
   function formatarData(dataString) {
     if(!dataString.includes('-')) return dataString; 
     const partes = dataString.split('-');
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
+  }
+
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   document.addEventListener('DOMContentLoaded', carregarArtigos);
