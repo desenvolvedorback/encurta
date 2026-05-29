@@ -1,20 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Política de Privacidade</title>
-   <link rel="icon" href="https://files.catbox.moe/t696qp.png">
-  <style>
-    body { background: #000; color: #0f0; font-family: sans-serif; padding: 2rem; line-height: 1.6; }
-    h1 { color: #0f0; }
-    a { color: #0f0; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Política de Privacidade — NeoNet</title>
+<link rel="icon" href="https://files.catbox.moe/t696qp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-main: #0b0c0e;
+    --bg-card: #13151a;
+    --primary: #00b159;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #242936;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+
+  .wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+  }
+
+  .brand-badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+    margin-bottom: 8px;
+  }
+
+  .meta-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .intro-text {
+    font-size: 1.05rem;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+  }
+
+  section {
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background-color: var(--primary);
+    margin-right: 10px;
+    border-radius: 2px;
+  }
+
+  p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    text-align: justify;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  li {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  footer a, section a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  footer a:hover, section a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 20px 10px; }
+    .wrapper { padding: 25px 20px; }
+    header h1 { font-size: 1.6rem; }
+  }
+</style>
 </head>
 <body>
-  <h1>Política de Privacidade</h1>
-  <p>Este site utiliza cookies e pode exibir anúncios personalizados por meio do Google AdSense. Ao continuar navegando, você concorda com esses termos.</p>
-  <p>Não coletamos dados pessoais diretamente. Anúncios exibidos podem usar cookies para personalização.</p>
-  <p>Para saber mais, visite a <a href="https://policies.google.com/technologies/ads" target="_blank">Política de Anúncios do Google</a>.</p>
-  <p>Contato: desenvolvimentobackend@gmail.com</p>
+
+<div class="wrapper">
+  <header>
+    <span class="brand-badge">Grupo Zyntra Ecosystem</span>
+    <h1>Política de Privacidade</h1>
+    <div class="meta-date">Última atualização: 29 de maio de 2026</div>
+  </header>
+
+  <p class="intro-text">
+    A sua privacidade é de extrema importância para nós. Esta Política de Privacidade descreve como as informações são coletadas, utilizadas e protegidas ao interagir com a nossa plataforma.
+  </p>
+
+  <section>
+    <h2>1. Coleta de Dados e Informações</h2>
+    <p>
+      Nossa plataforma está estruturada para operar sem a necessidade de coleta direta de informações de identificação pessoal (como nome, CPF ou endereço residencial) para a navegação comum. Eventuais comunicações enviadas voluntariamente por e-mail serão tratadas com estrito sigilo corporativo.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Cookies e Identificadores Locais</h2>
+    <p>
+      Utilizamos cookies, que são pequenos arquivos de texto armazenados no seu navegador, para otimizar a experiência de navegação, analisar o tráfego do site e compreender os padrões de uso da plataforma. O usuário possui total autonomia para configurar, bloquear ou recusar o armazenamento de cookies diretamente nas opções de segurança de seu navegador.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Publicidade Terceirizada (Google AdSense)</h2>
+    <p>
+      Para viabilizar a manutenção e gratuidade dos nossos serviços, exibimos anúncios publicitários gerenciados por parceiros terceiros, especificamente o <strong>Google AdSense</strong>. 
+    </p>
+    <p>
+      O Google e seus parceiros utilizam cookies (como o cookie DoubleClick) para veicular anúncios com base nas visitas anteriores realizadas pelo usuário neste ou em outros websites da internet.
+    </p>
+    <ul>
+      <li>Os cookies de publicidade permitem que o Google exiba anúncios relevantes baseados nos seus interesses de navegação.</li>
+      <li>Os usuários podem desativar a publicidade personalizada a qualquer momento acessando as <a href="https://adssettings.google.com" target="_blank">Configurações de Anúncios do Google</a>.</li>
+      <li>Alternativamente, você pode orientar seu navegador a recusar o uso de cookies de terceiros para publicidade direcionada visitando o site <a href="https://www.aboutads.info" target="_blank">www.aboutads.info</a>.</li>
+    </ul>
+    <p>
+      Para compreender detalhadamente como o Google realiza o tratamento dos dados coletados de forma automatizada, recomendamos a leitura da <a href="https://policies.google.com/technologies/ads" target="_blank">Política de Anúncios do Google</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>4. Links para Sites de Terceiros</h2>
+    <p>
+      Nosso ecossistema pode conter pontes informativas ou links que direcionam o usuário para páginas externas que não são operadas ou controladas pelo Grupo Zyntra. Não possuímos controle e não assumimos responsabilidade pelas práticas, conteúdos ou políticas de privacidade mantidas por terceiros.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Alterações nesta Política</h2>
+    <p>
+      Esta política pode sofrer atualizações e ajustes periódicos para se manter em total conformidade com novas exigências legais ou aprimoramentos técnicos de segurança. Toda nova versão passará a produzir efeitos legais de forma imediata assim que publicada nesta URL.
+    </p>
+  </section>
+
+  <footer>
+    <p>Caso possua dúvidas sobre os termos de privacidade ou deseje realizar solicitações, entre em contato com nosso departamento técnico via <a href="mailto:desenvolvimentobackend@gmail.com">desenvolvimentobackend@gmail.com</a>.</p>
+    <p style="margin-top: 14px; font-size: 0.8rem; color: #64748b;">NeoNet — Uma solução integrada ao ecossistema tecnológico do Grupo Zyntra.</p>
+  </footer>
+</div>
+
 </body>
 </html>
