@@ -187,19 +187,23 @@
   async function carregarArtigos() {
     const container = document.getElementById('articlesContainer');
     try {
-      // 1. Mudança principal: Usar o Bing News (Links diretos para portais) em vez do Google News
-      const rssUrl = encodeURIComponent('https://www.bing.com/news/search?q=Tecnologia&format=rss&mkt=pt-BR');
+      // Usando o Feed RSS do G1 Tecnologia - Super estável e com links diretos
+      const rssUrl = encodeURIComponent('https://g1.globo.com/rss/g1/tecnologia/');
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
 
       const response = await fetch(apiUrl);
       const data = await response.json();
       
-      if (data.status !== 'ok') throw new Error();
+      if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+        throw new Error("Feed vazio ou bloqueado.");
+      }
 
       bancoArtigos = data.items.map(item => {
         const div = document.createElement('div');
         div.innerHTML = item.description;
         let textoLimpo = div.textContent || div.innerText || "";
+        
+        // Muitos RSS do G1 tem a data no formato YYYY-MM-DD HH:MM:SS
         const dataFormatada = item.pubDate.split(' ')[0]; 
         
         const tituloSeguro = item.title.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
@@ -216,13 +220,18 @@
       renderizarArtigos(bancoArtigos);
       
     } catch (error) {
-      container.innerHTML = `<div class="status-container">Erro ao estabelecer conexão com a fonte de notícias.</div>`;
+      container.innerHTML = `<div class="status-container">Falha ao buscar notícias recentes. Tente novamente em alguns instantes.</div>`;
     }
   }
 
   function renderizarArtigos(lista, termoBusca = '') {
     const container = document.getElementById('articlesContainer');
-    if (lista.length === 0) return;
+    
+    // Agora, se a lista for vazia (ex: na pesquisa), mostra a mensagem correta
+    if (lista.length === 0) {
+      container.innerHTML = `<div class="status-container">Nenhum artigo localizado.</div>`;
+      return;
+    }
 
     container.innerHTML = lista.map((artigo) => {
       let tituloFinal = artigo.titulo;
@@ -230,8 +239,16 @@
       
       const tituloLower = artigo.titulo.toLowerCase();
       if(tituloLower.includes('ia') || tituloLower.includes('inteligência')) categoria = 'Inteligência Artificial';
-      else if(tituloLower.includes('segurança') || tituloLower.includes('hacker')) categoria = 'Segurança';
+      else if(tituloLower.includes('segurança') || tituloLower.includes('golpe') || tituloLower.includes('hacker')) categoria = 'Segurança';
       else if(tituloLower.includes('google') || tituloLower.includes('apple') || tituloLower.includes('microsoft')) categoria = 'Big Tech';
+
+      // Se houver busca, destaca o termo
+      let conteudoExibicao = artigo.conteudo;
+      if (termoBusca) {
+        const regex = new RegExp(`(${escapeRegExp(termoBusca)})`, 'gi');
+        tituloFinal = tituloFinal.replace(regex, '<span class="highlight">$1</span>');
+        conteudoExibicao = conteudoExibicao.replace(regex, '<span class="highlight">$1</span>');
+      }
 
       return `
         <article>
@@ -241,14 +258,28 @@
             <span>${formatarData(artigo.data)}</span>
           </div>
           <h2><a onclick="abrirLeitor('${artigo.link}', '${artigo.tituloSeguro}')">${tituloFinal}</a></h2>
-          <div class="content-preview">${artigo.conteudo}</div>
+          <div class="content-preview">${conteudoExibicao}</div>
         </article>
       `;
     }).join('');
   }
 
+  // Monitor da barra de pesquisa
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    const termo = e.target.value.trim().toLowerCase();
+    if (!termo) {
+      renderizarArtigos(bancoArtigos);
+      return;
+    }
+    const filtrados = bancoArtigos.filter(artigo => 
+      artigo.titulo.toLowerCase().includes(termo) || 
+      artigo.conteudo.toLowerCase().includes(termo)
+    );
+    renderizarArtigos(filtrados, termo);
+  });
+
   /* ====================================================================
-     MODO LEITURA - ALGORITMO MELHORADO 
+     MODO LEITURA - ALGORITMO OTIMIZADO PARA PORTAIS REAIS
      ==================================================================== */
   async function abrirLeitor(url, titulo) {
     const modal = document.getElementById('readerModal');
@@ -261,7 +292,6 @@
     document.body.style.overflow = 'hidden'; 
 
     try {
-      // Como não tem mais o bloqueio do Google, vamos direto no link original
       let proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
       let response = await fetch(proxyUrl);
       let data = await response.json();
@@ -270,7 +300,7 @@
       const parser = new DOMParser();
       let doc = parser.parseFromString(htmlText, 'text/html');
 
-      // Limpeza ainda mais agressiva de lixo (Ads, menus, sidebars)
+      // Limpeza de lixo
       const selectorsToKill = [
         'script', 'style', 'nav', 'header', 'footer', 'aside', 'iframe', 'form', 
         'noscript', 'svg', '.ad', '.ads', '.menu', '.sidebar', '#sidebar', '.related-posts'
@@ -279,14 +309,13 @@
           doc.querySelectorAll(sel).forEach(el => el.remove());
       });
 
-      // Busca inteligente pelos containers onde a notícia realmente fica
+      // Seletor adaptado para as classes que grandes portais (como G1 e UOL) usam
       let containerNoticia = doc.querySelector('article') 
+                          || doc.querySelector('.mc-body') // Classe comum no G1
                           || doc.querySelector('.article-content') 
                           || doc.querySelector('.post-content')
-                          || doc.querySelector('.conteudo-materia')
                           || doc.querySelector('main');
       
-      // Se a estrutura for bagunçada, procura a <div> que mais tem textos (parágrafos)
       if (!containerNoticia) {
         let maxP = 0;
         doc.querySelectorAll('div').forEach(div => {
@@ -297,7 +326,6 @@
 
       if (!containerNoticia) throw new Error();
 
-      // Monta o texto limpo com parágrafos e imagens válidas
       let conteudoLimpo = '';
       containerNoticia.querySelectorAll('p, h2, h3, img').forEach(el => {
           if (el.tagName === 'IMG') {
@@ -306,7 +334,6 @@
                   conteudoLimpo += `<img src="${src}" alt="Imagem da Notícia">`;
               }
           } else {
-              // Só pega o parágrafo se tiver mais de 30 letras (evita botões e links soltos)
               if (el.textContent.trim().length > 30) {
                   conteudoLimpo += `<${el.tagName.toLowerCase()}>${el.innerHTML}</${el.tagName.toLowerCase()}>`;
               }
@@ -318,10 +345,9 @@
       modalContent.innerHTML = conteudoLimpo;
 
     } catch (err) {
-      // Fallback amigável caso o portal não permita robôs de forma alguma
       modalContent.innerHTML = `
         <p style="color: #ef4444; margin-bottom:15px; font-weight:600;">O portal original bloqueou a extração automática deste artigo.</p>
-        <p>Devido às políticas de segurança (CORS) ou estruturação em Javascript do site <i>${new URL(url).hostname}</i>, não foi possível carregar a leitura nativa.</p>
+        <p>Você pode acessar a versão completa do artigo clicando no botão abaixo.</p>
         <br>
         <a href="${url}" target="_blank" style="display:inline-block; padding: 12px 24px; background: var(--primary); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 500;">
           Ler matéria completa no portal original ↗
@@ -339,6 +365,10 @@
     if(!dataString.includes('-')) return dataString; 
     const partes = dataString.split('-');
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
+  }
+
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   document.addEventListener('DOMContentLoaded', carregarArtigos);
