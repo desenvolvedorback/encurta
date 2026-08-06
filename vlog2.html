@@ -187,47 +187,39 @@
   async function carregarArtigos() {
     const container = document.getElementById('articlesContainer');
     try {
-      // Usando o Feed RSS do G1 Tecnologia - Super estável e com links diretos
-      const rssUrl = encodeURIComponent('https://g1.globo.com/rss/g1/tecnologia/');
-      const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
-
-      const response = await fetch(apiUrl);
+      // 1. Buscando os conteúdos mais relevantes de Tecnologia na API oficial do TabNews
+      // Zero bloqueios de CORS, zero proxies, zero firewalls!
+      const response = await fetch('https://www.tabnews.com.br/api/v1/contents?strategy=relevant');
       const data = await response.json();
-      
-      if (data.status !== 'ok' || !data.items || data.items.length === 0) {
-        throw new Error("Feed vazio ou bloqueado.");
+
+      if (!Array.isArray(data) || data.length === 0) {
+        throw new Error("Feed vazio.");
       }
 
-      bancoArtigos = data.items.map(item => {
-        const div = document.createElement('div');
-        div.innerHTML = item.description;
-        let textoLimpo = div.textContent || div.innerText || "";
+      bancoArtigos = data.map(item => {
+        const tituloSeguro = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
         
-        // Muitos RSS do G1 tem a data no formato YYYY-MM-DD HH:MM:SS
-        const dataFormatada = item.pubDate.split(' ')[0]; 
-        
-        const tituloSeguro = item.title.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
-
         return {
+          id: item.id,
           titulo: item.title,
           tituloSeguro: tituloSeguro,
-          conteudo: textoLimpo.substring(0, 150) + `... <br><br><a onclick="abrirLeitor('${item.link}', '${tituloSeguro}')">Ler matéria completa na Zyntra ↗</a>`,
-          data: dataFormatada,
-          link: item.link
+          autor: item.owner_username,
+          slug: item.slug,
+          data: item.published_at.split('T')[0],
+          link: `https://www.tabnews.com.br/${item.owner_username}/${item.slug}`
         };
       });
 
       renderizarArtigos(bancoArtigos);
       
     } catch (error) {
-      container.innerHTML = `<div class="status-container">Falha ao buscar notícias recentes. Tente novamente em alguns instantes.</div>`;
+      container.innerHTML = `<div class="status-container">Falha ao buscar notícias. Tente novamente em alguns instantes.</div>`;
     }
   }
 
   function renderizarArtigos(lista, termoBusca = '') {
     const container = document.getElementById('articlesContainer');
     
-    // Agora, se a lista for vazia (ex: na pesquisa), mostra a mensagem correta
     if (lista.length === 0) {
       container.innerHTML = `<div class="status-container">Nenhum artigo localizado.</div>`;
       return;
@@ -235,30 +227,27 @@
 
     container.innerHTML = lista.map((artigo) => {
       let tituloFinal = artigo.titulo;
-      let categoria = 'Tecnologia';
-      
-      const tituloLower = artigo.titulo.toLowerCase();
-      if(tituloLower.includes('ia') || tituloLower.includes('inteligência')) categoria = 'Inteligência Artificial';
-      else if(tituloLower.includes('segurança') || tituloLower.includes('golpe') || tituloLower.includes('hacker')) categoria = 'Segurança';
-      else if(tituloLower.includes('google') || tituloLower.includes('apple') || tituloLower.includes('microsoft')) categoria = 'Big Tech';
 
-      // Se houver busca, destaca o termo
-      let conteudoExibicao = artigo.conteudo;
+      // Se houver busca, destaca o termo no título
       if (termoBusca) {
         const regex = new RegExp(`(${escapeRegExp(termoBusca)})`, 'gi');
         tituloFinal = tituloFinal.replace(regex, '<span class="highlight">$1</span>');
-        conteudoExibicao = conteudoExibicao.replace(regex, '<span class="highlight">$1</span>');
       }
 
       return `
         <article>
           <div class="meta-info">
-            <span class="category">${categoria}</span>
+            <span class="category">Tecnologia (TabNews)</span>
             <span>•</span>
             <span>${formatarData(artigo.data)}</span>
+            <span>•</span>
+            <span>Por ${artigo.autor}</span>
           </div>
-          <h2><a onclick="abrirLeitor('${artigo.link}', '${artigo.tituloSeguro}')">${tituloFinal}</a></h2>
-          <div class="content-preview">${conteudoExibicao}</div>
+          <h2><a style="cursor:pointer; color: var(--primary);" onclick="abrirLeitor('${artigo.autor}', '${artigo.slug}', '${artigo.tituloSeguro}')">${tituloFinal}</a></h2>
+          <div class="content-preview">
+            Clique no título para carregar o artigo completo instantaneamente, sem sair do aplicativo e sem ser bloqueado por firewalls.
+            <br><br><a style="cursor:pointer; font-weight: bold;" onclick="abrirLeitor('${artigo.autor}', '${artigo.slug}', '${artigo.tituloSeguro}')">Ler matéria completa na Zyntra ↗</a>
+          </div>
         </article>
       `;
     }).join('');
@@ -272,88 +261,64 @@
       return;
     }
     const filtrados = bancoArtigos.filter(artigo => 
-      artigo.titulo.toLowerCase().includes(termo) || 
-      artigo.conteudo.toLowerCase().includes(termo)
+      artigo.titulo.toLowerCase().includes(termo)
     );
     renderizarArtigos(filtrados, termo);
   });
 
   /* ====================================================================
-     MODO LEITURA - ALGORITMO OTIMIZADO PARA PORTAIS REAIS
+     MODO LEITURA - CONSUMINDO A MATÉRIA INTEIRA DIRETAMENTE DA API
      ==================================================================== */
-  async function abrirLeitor(url, titulo) {
+  async function abrirLeitor(autor, slug, titulo) {
     const modal = document.getElementById('readerModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalContent = document.getElementById('modalContent');
     
     modalTitle.innerText = titulo;
-    modalContent.innerHTML = `<div class="loader">Extraindo conteúdo original</div>`;
+    modalContent.innerHTML = `<div class="loader">Carregando conteúdo nativo...</div>`;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden'; 
 
     try {
-      let proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-      let response = await fetch(proxyUrl);
-      let data = await response.json();
-      let htmlText = data.contents;
-
-      const parser = new DOMParser();
-      let doc = parser.parseFromString(htmlText, 'text/html');
-
-      // Limpeza de lixo
-      const selectorsToKill = [
-        'script', 'style', 'nav', 'header', 'footer', 'aside', 'iframe', 'form', 
-        'noscript', 'svg', '.ad', '.ads', '.menu', '.sidebar', '#sidebar', '.related-posts'
-      ];
-      selectorsToKill.forEach(sel => {
-          doc.querySelectorAll(sel).forEach(el => el.remove());
-      });
-
-      // Seletor adaptado para as classes que grandes portais (como G1 e UOL) usam
-      let containerNoticia = doc.querySelector('article') 
-                          || doc.querySelector('.mc-body') // Classe comum no G1
-                          || doc.querySelector('.article-content') 
-                          || doc.querySelector('.post-content')
-                          || doc.querySelector('main');
+      // 2. Aqui está o segredo: fazemos uma segunda requisição para pegar o CORPO da matéria direto da API.
+      // O portal não acha que somos um robô roubando dados, porque estamos usando a porta de entrada oficial.
+      const response = await fetch(`https://www.tabnews.com.br/api/v1/contents/${autor}/${slug}`);
       
-      if (!containerNoticia) {
-        let maxP = 0;
-        doc.querySelectorAll('div').forEach(div => {
-            let pCount = div.querySelectorAll('p').length;
-            if (pCount > maxP) { maxP = pCount; containerNoticia = div; }
-        });
-      }
+      if (!response.ok) throw new Error();
+      
+      const data = await response.json();
+      
+      // A API retorna o texto em Markdown (formato universal). Nós convertemos para HTML para ficar bonito:
+      const corpoHtml = converterMarkdownParaHtml(data.body);
 
-      if (!containerNoticia) throw new Error();
-
-      let conteudoLimpo = '';
-      containerNoticia.querySelectorAll('p, h2, h3, img').forEach(el => {
-          if (el.tagName === 'IMG') {
-              let src = el.getAttribute('src') || el.getAttribute('data-src');
-              if (src && !src.startsWith('data:') && !src.includes('pixel') && !src.includes('icon')) {
-                  conteudoLimpo += `<img src="${src}" alt="Imagem da Notícia">`;
-              }
-          } else {
-              if (el.textContent.trim().length > 30) {
-                  conteudoLimpo += `<${el.tagName.toLowerCase()}>${el.innerHTML}</${el.tagName.toLowerCase()}>`;
-              }
-          }
-      });
-
-      if (!conteudoLimpo) throw new Error();
-
-      modalContent.innerHTML = conteudoLimpo;
+      modalContent.innerHTML = `<div style="line-height: 1.7; font-size: 1.05rem; color: #333;">${corpoHtml}</div>`;
 
     } catch (err) {
       modalContent.innerHTML = `
-        <p style="color: #ef4444; margin-bottom:15px; font-weight:600;">O portal original bloqueou a extração automática deste artigo.</p>
-        <p>Você pode acessar a versão completa do artigo clicando no botão abaixo.</p>
-        <br>
-        <a href="${url}" target="_blank" style="display:inline-block; padding: 12px 24px; background: var(--primary); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 500;">
-          Ler matéria completa no portal original ↗
-        </a>
+        <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 20px; border-radius: 8px;">
+          <h3 style="color: #ef4444; margin-top:0;">Erro ao carregar artigo</h3>
+          <p>Não foi possível buscar o conteúdo desta publicação. Pode ter sido removido pelo autor.</p>
+          <a href="https://www.tabnews.com.br/${autor}/${slug}" target="_blank" style="display:inline-block; padding: 12px 24px; background: #ef4444; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 10px;">
+            Tentar ler no navegador original ↗
+          </a>
+        </div>
       `;
     }
+  }
+
+  // Função utilitária para transformar o texto bruto da API em elementos visuais (parágrafos, negritos, links)
+  function converterMarkdownParaHtml(markdown) {
+    if (!markdown) return "";
+    let html = markdown
+      .replace(/^### (.*$)/gim, '<h3 style="margin-top:20px;">$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2 style="margin-top:25px; border-bottom: 1px solid #eee; padding-bottom: 5px;">$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1 style="margin-top:25px;">$1</h1>')
+      .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+      .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" style="color: var(--primary);">$1</a>')
+      .replace(/\n\n/gim, '</p><p style="margin-bottom: 15px;">')
+      .replace(/\n/gim, '<br>');
+    return `<p>${html}</p>`;
   }
 
   function fecharLeitor() {
