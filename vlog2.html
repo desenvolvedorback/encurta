@@ -33,151 +33,40 @@
     line-height: 1.6;
   }
 
-  .container {
-    max-width: 1140px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+  .container { max-width: 1140px; width: 100%; margin: 0 auto; padding: 0 24px; }
 
-  header {
-    background-color: var(--bg-main);
-    padding: 30px 0;
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
-  }
+  header { background-color: var(--bg-main); padding: 30px 0; border-bottom: 1px solid var(--border-color); text-align: center; }
 
   .zyntra-badge {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    color: var(--primary);
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: inline-block;
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--primary); font-weight: 700; margin-bottom: 8px; display: inline-block;
   }
 
-  header h1 {
-    font-family: 'Georgia', serif;
-    font-size: 2.8rem;
-    font-weight: 700;
-    letter-spacing: -1px;
-    color: var(--text-main);
-    margin-bottom: 6px;
-  }
+  header h1 { font-family: 'Georgia', serif; font-size: 2.8rem; font-weight: 700; letter-spacing: -1px; color: var(--text-main); margin-bottom: 6px; }
+  header p { color: var(--text-muted); font-size: 0.95rem; font-weight: 400; }
 
-  header p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 400;
-  }
-
-  .nav-bar {
-    background-color: var(--bg-nav);
-    border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-
-  .nav-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-  }
-
-  nav a {
-    color: var(--text-muted);
-    margin-right: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-
+  .nav-bar { background-color: var(--bg-nav); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+  nav a { color: var(--text-muted); margin-right: 25px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
   nav a:hover, nav a.active { color: var(--primary); }
 
   .search-box { position: relative; width: 300px; }
-
   .search-box input {
-    width: 100%;
-    background-color: #1e222b;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 8px 14px 8px 36px;
-    color: var(--text-main);
-    font-size: 0.85rem;
-    outline: none;
-    transition: all 0.2s;
+    width: 100%; background-color: #1e222b; border: 1px solid var(--border-color);
+    border-radius: 6px; padding: 8px 14px 8px 36px; color: var(--text-main); font-size: 0.85rem; outline: none; transition: all 0.2s;
   }
+  .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0, 177, 89, 0.15); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; border: 2px solid #64748b; border-radius: 50%; }
+  .search-icon::after { content: ''; position: absolute; width: 6px; height: 2px; background: #64748b; transform: rotate(45deg); top: 10px; left: 10px; }
 
-  .search-box input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(0, 177, 89, 0.15);
-  }
+  main { flex: 1; padding: 40px 0; }
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+  .news-grid article:first-of-type { grid-column: span 3; display: grid; grid-template-columns: 1fr; border-bottom: 2px solid var(--border-color); padding-bottom: 35px; }
+  .news-grid article:first-of-type h2 { font-size: 2.2rem; font-family: 'Georgia', serif; }
 
-  .search-box ::placeholder { color: #64748b; }
-
-  .search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
-    border: 2px solid #64748b;
-    border-radius: 50%;
-  }
-  .search-icon::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 2px;
-    background: #64748b;
-    transform: rotate(45deg);
-    top: 10px;
-    left: 10px;
-  }
-
-  main {
-    flex: 1;
-    padding: 40px 0;
-  }
-
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  }
-
-  .news-grid article:first-of-type {
-    grid-column: span 3;
-    display: grid;
-    grid-template-columns: 1fr;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 35px;
-  }
+  article { background-color: transparent; border-bottom: 1px solid var(--border-color); padding-bottom: 25px; margin-bottom: 5px; display: flex; flex-direction: column; }
   
-  .news-grid article:first-of-type h2 {
-    font-size: 2.2rem;
-    font-family: 'Georgia', serif;
-  }
-
-  article {
-    background-color: transparent;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 25px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media (min-width: 769px) {
-    .news-grid article { grid-column: span 1; }
-  }
-
+  @media (min-width: 769px) { .news-grid article { grid-column: span 1; } }
   @media (max-width: 768px) {
     .news-grid { grid-template-columns: 1fr; }
     .news-grid article:first-of-type { grid-column: span 1; }
@@ -185,74 +74,63 @@
     .search-box { width: 100%; }
   }
 
-  article h2 {
-    color: var(--text-main);
-    font-size: 1.35rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    line-height: 1.3;
-    transition: color 0.2s;
-  }
-
-  article h2 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
+  article h2 { color: var(--text-main); font-size: 1.35rem; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+  article h2 a { color: inherit; text-decoration: none; cursor: pointer; transition: color 0.2s; }
   article h2 a:hover { color: var(--primary); }
 
-  .meta-info {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 15px;
-  }
+  .meta-info { display: flex; gap: 12px; align-items: center; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; }
+  .category { color: var(--primary); font-weight: 600; }
 
-  .category {
-    color: var(--primary);
-    font-weight: 600;
-  }
-
-  article .content-preview {
-    color: #cbd5e1;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    word-break: break-word;
-  }
-
-  .content-preview a { color: var(--primary-light); text-decoration: none; font-weight: 500;}
+  article .content-preview { color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; word-break: break-word; }
+  .content-preview a { color: var(--primary-light); text-decoration: none; font-weight: 500; cursor: pointer; }
   .content-preview a:hover { text-decoration: underline; }
 
-  .status-container {
-    grid-column: span 3;
-    text-align: center;
-    padding: 50px;
-    color: var(--text-muted);
-    border: 1px dashed var(--border-color);
-    border-radius: 8px;
-  }
+  .status-container { grid-column: span 3; text-align: center; padding: 50px; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: 8px; }
 
-  .highlight {
-    background-color: rgba(0, 177, 89, 0.25);
-    color: #fff;
-    padding: 0 2px;
-    border-radius: 2px;
-  }
-
-  footer {
-    background-color: #090a0c;
-    border-top: 1px solid var(--border-color);
-    padding: 30px 0;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-
+  footer { background-color: #090a0c; border-top: 1px solid var(--border-color); padding: 30px 0; text-align: center; font-size: 0.85rem; color: var(--text-muted); }
   footer span { color: var(--text-main); font-weight: 500; }
+
+  /* ====================================================
+     ESTILOS DO MODAL DE LEITURA (NOVA FUNCIONALIDADE)
+     ==================================================== */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px);
+    display: none; justify-content: center; align-items: flex-start;
+    z-index: 9999; padding: 40px 20px; overflow-y: auto; opacity: 0; transition: opacity 0.3s;
+  }
+  .modal-overlay.active { display: flex; opacity: 1; }
+
+  .modal-window {
+    background-color: var(--bg-card); width: 100%; max-width: 800px;
+    border-radius: 12px; border: 1px solid var(--border-color);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5); position: relative;
+    overflow: hidden; animation: slideUp 0.4s ease forwards;
+  }
+  @keyframes slideUp { from { transform: translateY(30px); } to { transform: translateY(0); } }
+
+  .modal-header {
+    padding: 24px 30px; border-bottom: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--bg-card);
+  }
+  .modal-title { font-family: 'Georgia', serif; font-size: 1.5rem; font-weight: 700; color: #fff; margin-right: 20px; line-height: 1.3;}
+  
+  .btn-close {
+    background: transparent; border: none; color: var(--text-muted);
+    font-size: 1.8rem; cursor: pointer; transition: color 0.2s; line-height: 1;
+  }
+  .btn-close:hover { color: #ef4444; }
+
+  .modal-body { padding: 30px; color: #cbd5e1; font-size: 1.1rem; line-height: 1.8; }
+  
+  /* Formatação interna da notícia lida */
+  .modal-body p { margin-bottom: 20px; }
+  .modal-body h2, .modal-body h3 { color: #fff; margin: 30px 0 15px 0; font-family: 'Georgia', serif; }
+  .modal-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; }
+  
+  .loader { text-align: center; padding: 50px 0; color: var(--primary); font-weight: 500; font-size: 1.2rem; }
+  .loader::after { content: '...'; animation: blink 1.5s infinite; }
+  @keyframes blink { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
 </style>
 </head>
 <body>
@@ -292,38 +170,47 @@
   </div>
 </footer>
 
+<!-- ESTRUTURA DO MODAL (Leitor Nativo) -->
+<div id="readerModal" class="modal-overlay">
+  <div class="modal-window">
+    <div class="modal-header">
+      <div id="modalTitle" class="modal-title">Título da Notícia</div>
+      <button class="btn-close" onclick="fecharLeitor()">&times;</button>
+    </div>
+    <div id="modalContent" class="modal-body">
+      <!-- O conteúdo processado aparecerá aqui -->
+    </div>
+  </div>
+</div>
+
 <script>
   let bancoArtigos = [];
 
   async function carregarArtigos() {
     const container = document.getElementById('articlesContainer');
     try {
-      // Usamos o RSS do Google News Brasil sobre Tecnologia
       const rssUrl = encodeURIComponent('https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FtVnVHZ0pWVXlnQVAB?hl=pt-BR&gl=BR&ceid=BR:pt-419');
-      // Passamos pelo rss2json para converter o XML em JSON e liberar o bloqueio de CORS do navegador
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
 
       const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error('Falha na resposta da API');
-      
       const data = await response.json();
       
-      if (data.status !== 'ok') throw new Error('Erro ao processar feed RSS');
+      if (data.status !== 'ok') throw new Error();
 
-      // Mapeia o JSON retornado para o formato que a página já usa
       bancoArtigos = data.items.map(item => {
-        // O Google News retorna o conteúdo com tags HTML pesadas. 
-        // Vamos extrair apenas o texto puro para ficar limpo no layout.
         const div = document.createElement('div');
         div.innerHTML = item.description;
         let textoLimpo = div.textContent || div.innerText || "";
-        
-        // Formatação da data (vem no formato "YYYY-MM-DD HH:MM:SS")
         const dataFormatada = item.pubDate.split(' ')[0]; 
+        
+        // Remove as aspas do título para não quebrar a função onClick
+        const tituloSeguro = item.title.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
 
         return {
           titulo: item.title,
-          conteudo: textoLimpo.substring(0, 180) + `... <br><br><a href="${item.link}" target="_blank">Ler matéria completa ↗</a>`,
+          tituloSeguro: tituloSeguro,
+          // O link agora ativa a função do client-side em vez de ir para outra página
+          conteudo: textoLimpo.substring(0, 150) + `... <br><br><a onclick="abrirLeitor('${item.link}', '${tituloSeguro}')">Ler matéria completa na Zyntra ↗</a>`,
           data: dataFormatada,
           link: item.link
         };
@@ -332,34 +219,22 @@
       renderizarArtigos(bancoArtigos);
       
     } catch (error) {
-      container.innerHTML = `<div class="status-container">Erro ao estabelecer conexão com a fonte de notícias do Google. <br>Detalhes: ${error.message}</div>`;
+      container.innerHTML = `<div class="status-container">Erro ao estabelecer conexão com a fonte de notícias do Google.</div>`;
     }
   }
 
   function renderizarArtigos(lista, termoBusca = '') {
     const container = document.getElementById('articlesContainer');
-    
-    if (lista.length === 0) {
-      container.innerHTML = `<div class="status-container">Nenhum artigo localizado para o termo correspondente.</div>`;
-      return;
-    }
+    if (lista.length === 0) return;
 
-    container.innerHTML = lista.map((artigo, idx) => {
+    container.innerHTML = lista.map((artigo) => {
       let tituloFinal = artigo.titulo;
-      let conteudoFinal = artigo.conteudo;
-      
-      if (termoBusca) {
-        const regex = new RegExp(`(${escapeRegExp(termoBusca)})`, 'gi');
-        tituloFinal = tituloFinal.replace(regex, '<span class="highlight">$1</span>');
-        conteudoFinal = conteudoFinal.replace(regex, '<span class="highlight">$1</span>');
-      }
-
       let categoria = 'Tecnologia';
+      
       const tituloLower = artigo.titulo.toLowerCase();
-      if(tituloLower.includes('ia') || tituloLower.includes('inteligência') || tituloLower.includes('chatgpt')) categoria = 'Inteligência Artificial';
-      else if(tituloLower.includes('cibersegurança') || tituloLower.includes('segurança') || tituloLower.includes('hacker')) categoria = 'Segurança';
+      if(tituloLower.includes('ia') || tituloLower.includes('inteligência')) categoria = 'Inteligência Artificial';
+      else if(tituloLower.includes('segurança') || tituloLower.includes('hacker')) categoria = 'Segurança';
       else if(tituloLower.includes('google') || tituloLower.includes('apple') || tituloLower.includes('microsoft')) categoria = 'Big Tech';
-      else if(tituloLower.includes('celular') || tituloLower.includes('smartphone')) categoria = 'Mobile';
 
       return `
         <article>
@@ -368,37 +243,120 @@
             <span>•</span>
             <span>${formatarData(artigo.data)}</span>
           </div>
-          <h2><a href="${artigo.link}" target="_blank">${tituloFinal}</a></h2>
-          <div class="content-preview">${conteudoFinal}</div>
+          <h2><a onclick="abrirLeitor('${artigo.link}', '${artigo.tituloSeguro}')">${tituloFinal}</a></h2>
+          <div class="content-preview">${artigo.conteudo}</div>
         </article>
       `;
     }).join('');
   }
 
-  document.getElementById('searchInput').addEventListener('input', function(e) {
-    const termo = e.target.value.trim().toLowerCase();
+  /* ====================================================================
+     LÓGICA DO MODO LEITURA (EXTRAÇÃO NATIVA SEM BACKEND)
+     ==================================================================== */
+  async function abrirLeitor(url, titulo) {
+    const modal = document.getElementById('readerModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
     
-    if (!termo) {
-      renderizarArtigos(bancoArtigos);
-      return;
+    modalTitle.innerText = titulo;
+    modalContent.innerHTML = `<div class="loader">Extraindo conteúdo original</div>`;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Trava o scroll do fundo
+
+    try {
+      // 1. Usamos a API pública AllOrigins para puxar o HTML ignorando o CORS
+      let proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+      let response = await fetch(proxyUrl);
+      let data = await response.json();
+      let htmlText = data.contents;
+
+      const parser = new DOMParser();
+      let doc = parser.parseFromString(htmlText, 'text/html');
+
+      // 2. Os links do Google News geralmente são redirecionamentos. 
+      // Se for um link de redirecionamento, nós extraímos a URL final e fazemos fetch novamente.
+      const isGoogleRedirect = htmlText.includes('<c-wiz') || htmlText.includes('http-equiv="refresh"');
+      if (isGoogleRedirect) {
+        let meta = doc.querySelector('meta[http-equiv="refresh"]');
+        let targetUrl = meta ? meta.getAttribute('content').split('url=')[1] : null;
+        
+        if (!targetUrl) {
+            let aTag = doc.querySelector('a');
+            if (aTag) targetUrl = aTag.href;
+        }
+
+        if (targetUrl) {
+          proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+          response = await fetch(proxyUrl);
+          data = await response.json();
+          doc = parser.parseFromString(data.contents, 'text/html');
+        }
+      }
+
+      // 3. Limpeza drástica: Removemos menus, rodapés, anúncios, scripts e styles
+      const tagsToKill = ['script', 'style', 'nav', 'header', 'footer', 'aside', 'iframe', 'form', 'noscript', 'svg'];
+      tagsToKill.forEach(tag => {
+          doc.querySelectorAll(tag).forEach(el => el.remove());
+      });
+
+      // 4. Heurística para achar onde está o texto da notícia (geralmente em <article> ou <main>)
+      let containerNoticia = doc.querySelector('article') || doc.querySelector('main');
+      
+      // Se não achar, procura a div com o maior número de parágrafos
+      if (!containerNoticia) {
+        let maxP = 0;
+        doc.querySelectorAll('div').forEach(div => {
+            let pCount = div.querySelectorAll('p').length;
+            if (pCount > maxP) { maxP = pCount; containerNoticia = div; }
+        });
+      }
+
+      if (!containerNoticia) {
+        throw new Error("Layout incompatível com extração de texto automática.");
+      }
+
+      // 5. Montamos o HTML final pegando apenas os parágrafos, subtítulos e imagens (layout limpo Zyntra)
+      let conteudoLimpo = '';
+      containerNoticia.querySelectorAll('p, h2, h3, img').forEach(el => {
+          if (el.tagName === 'IMG') {
+              let src = el.getAttribute('src') || el.getAttribute('data-src');
+              if (src && !src.startsWith('data:')) {
+                  conteudoLimpo += `<img src="${src}" alt="Imagem da notícia">`;
+              }
+          } else {
+              // Ignora parágrafos vazios ou textos muito pequenos de menu que sobraram
+              if (el.textContent.trim().length > 20) {
+                  conteudoLimpo += `<${el.tagName.toLowerCase()}>${el.textContent}</${el.tagName.toLowerCase()}>`;
+              }
+          }
+      });
+
+      if (!conteudoLimpo) throw new Error("Texto principal não encontrado.");
+
+      modalContent.innerHTML = conteudoLimpo;
+
+    } catch (err) {
+      // Se o robô não conseguir ler o HTML quebrado do site de origem, avisa o usuário.
+      modalContent.innerHTML = `
+        <p style="color: #ef4444; margin-bottom:15px;">Não foi possível extrair a notícia em Modo Leitura para este site específico.</p>
+        <p>A arquitetura da página original impede o robô de extração no client-side.</p>
+        <br>
+        <a href="${url}" target="_blank" style="display:inline-block; padding: 10px 20px; background: var(--primary); color: #fff; text-decoration: none; border-radius: 6px;">
+          Ler matéria na fonte original externa ↗
+        </a>
+      `;
     }
+  }
 
-    const filtrados = bancoArtigos.filter(artigo => 
-      artigo.titulo.toLowerCase().includes(termo) || 
-      artigo.conteudo.toLowerCase().includes(termo)
-    );
-
-    renderizarArtigos(filtrados, termo);
-  });
+  function fecharLeitor() {
+    document.getElementById('readerModal').classList.remove('active');
+    document.body.style.overflow = 'auto'; // Devolve o scroll do site
+  }
 
   function formatarData(dataString) {
     if(!dataString.includes('-')) return dataString; 
     const partes = dataString.split('-');
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
-  }
-
-  function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   document.addEventListener('DOMContentLoaded', carregarArtigos);
